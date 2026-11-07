@@ -52,18 +52,24 @@ You need:
 
 - [Switch Console](https://github.com/sandbox-quantum/switch/releases/latest)
 - Docker Desktop or Rancher Desktop
-- Claude Code, Codex or OpenCode, signed in
+- Claude Code, signed in
 
 Then:
 
 1. Follow the [Switch quickstart](https://docs.switchagents.ai/switch-rooms/getting-started).
-2. In Switch Console, open **Templates**, select **Import template** and load `on-record.template.yaml`.
-3. Select **Use**, keep the defaults or enter a client name, and create it.
-4. Paste the messages from [DEMO.md](DEMO.md) into the new room, one at a time.
+2. On the server's **Home** page, link your Mattermost account.
+3. In Switch Console, open **Templates**, select **Import template** and load `on-record.template.yaml`.
+4. Select **Use**, keep the defaults or enter a client name, and create it.
+5. Sign in to Mattermost as your linked account. It's the only one that can approve.
+6. Paste the messages from [DEMO.md](DEMO.md) into the new room, one at a time.
+
+The template sets Claude Code as the provider, because the provider picker in Switch Console's template form is unavailable on Windows ([issue #1511](https://github.com/sandbox-quantum/switch/issues/1511)). To use another provider, change `provider` in the template.
 
 The room uses fictional sample rates. To use your own, change `STUDIO RULES` in the template.
 
 To add another client, run the template again and choose **Existing agent** for both agents.
+
+The ledger is a Switch room document, so people can't open it directly. Ask `@client-desk show me the full Client Ledger` to see it in chat, or use `!list-documents` to confirm it exists.
 
 ## Controls
 
