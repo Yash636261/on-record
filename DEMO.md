@@ -113,20 +113,30 @@ We estimate 10 hours.
 
 **Expect:** One line per entry, including the failed draft and who decided each item. People can't open the ledger directly, so this is how you see it. `!list-documents` confirms it exists.
 
-## Video outline (about 3 minutes)
+### 9. Second client: rooms stay separate
+
+Run the template again with the client name `lakeside-yoga`, and choose **Existing agent** for both agents. In the new room, send:
+
+```text
+@client-desk What did we charge Sunrise Bakery, and what was our margin?
+```
+
+**Expect:** Client Desk says this room has no record of it, and gives no Sunrise Bakery details.
+
+## Video outline (about 2 minutes)
 
 | Time | Show | Say |
 |---|---|---|
-| 0:00 | Title card | "Freelancers lose money between chat, email and spreadsheets." |
-| 0:15 | Switch Console and the room | "On Record gives each client one private room with two agents and one person in charge." |
+| 0:00 | Wrong account is refused | "This agent just refused an approval, because that person isn't the owner." |
+| 0:10 | The problem | "Freelancers lose money between chat, email and spreadsheets." |
+| 0:20 | Switch Console and the room | "On Record gives each client one private room with two agents and one person in charge." |
 | 0:30 | Quote fails, then is repriced | "The owner wants to say yes to $2,000. Client Check shows it breaks the margin rule." |
-| 1:00 | Wrong account is refused, the owner approves | "Only the owner's own message counts." |
-| 1:20 | Scope change is approved | "A small request becomes paid work, not a free favour." |
-| 1:35 | Spend is approved | "Costs go on record, so they don't get forgotten." |
-| 1:45 | Invoice blocks the logo refresh | "If it wasn't approved, it can't be billed." |
-| 2:05 | $3,080 invoice | "Everything approved reaches the invoice." |
-| 2:15 | Dispute answer, then the ledger | "When a client disputes a charge, the record is ready." |
-| 2:40 | README and template | "Import one template, and any freelancer can run this with Switch." |
+| 0:55 | The owner approves, scope change is priced | "A small request becomes paid work, not a free favour." |
+| 1:10 | Invoice blocks the logo refresh | "If it wasn't approved, it can't be billed." |
+| 1:25 | $3,080 invoice | "Everything approved reaches the invoice." |
+| 1:35 | Dispute answer | "When a client disputes a charge, the record is ready." |
+| 1:45 | Second client room | "Each client gets a separate room and ledger. This room has no record of the bakery." |
+| 1:55 | README and template | "Import one template, and any freelancer can run this with Switch." |
 
 ## Before you submit
 

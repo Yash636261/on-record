@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On Record</title>
+<meta name="description" content="One private Switch room per client, where two AI agents prepare and check the work and a person makes every decision.">
+<style>
+:root {
+  --bg: #f7f5f0; --surface: #ffffff; --ink: #1c1d1f; --muted: #5c5f66;
+  --line: #dfdbd2; --accent: #17624f; --accent-soft: #dcefe9;
+  --warn: #a33a22; --warn-soft: #f8e4dd;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131517; --surface: #1c1f22; --ink: #eceded; --muted: #a2a6ac;
+    --line: #30343a; --accent: #5fc9ad; --accent-soft: #1b3a32;
+    --warn: #f0937a; --warn-soft: #43241c;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+a { color: var(--accent); }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+nav { border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center; padding-top: 14px; padding-bottom: 14px; }
+nav strong { margin-right: auto; }
+nav a { text-decoration: none; font-size: 15px; }
+header { padding: 64px 0 48px; }
+h1 { font-size: clamp(38px, 8vw, 60px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 16px; }
+.lead { font-size: 21px; color: var(--muted); margin: 0 0 28px; max-width: 660px; }
+.button {
+  display: inline-block; padding: 11px 18px; border-radius: 8px;
+  background: var(--accent); color: var(--bg); font-weight: 600; text-decoration: none;
+}
+section { padding: 40px 0; border-top: 1px solid var(--line); }
+h2 { font-size: 28px; line-height: 1.2; margin: 0 0 16px; letter-spacing: -0.01em; }
+h3 { font-size: 18px; margin: 0 0 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+.card p { margin: 0; color: var(--muted); font-size: 16px; }
+.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 0; margin: 20px 0 0; list-style: none; }
+.flow li { background: var(--accent-soft); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+.flow li + li::before { content: "→"; margin-right: 10px; color: var(--muted); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); min-width: 480px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 16px; vertical-align: top; }
+th { font-size: 14px; color: var(--muted); font-weight: 600; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tfoot td { font-weight: 700; border-bottom: 0; }
+.chat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 18px; }
+.msg { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.msg:last-child { border-bottom: 0; }
+.who { font-weight: 700; font-size: 15px; }
+.msg p { margin: 2px 0 0; }
+.tag { font-size: 13px; font-weight: 700; border-radius: 5px; padding: 1px 7px; margin-left: 6px; }
+.fail { background: var(--warn-soft); color: var(--warn); }
+.pass { background: var(--accent-soft); color: var(--accent); }
+.note { color: var(--muted); font-size: 15px; margin: 12px 0 0; }
+ol, ul { padding-left: 22px; }
+li { margin-bottom: 6px; }
+code { font: 0.9em ui-monospace, Consolas, monospace; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+footer { padding: 28px 0 44px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <strong>On Record</strong>
+    <a href="#how">How it works</a>
+    <a href="#inside">What's inside</a>
+    <a href="#setup">Set it up</a>
+    <a href="https://github.com/Yash636261/on-record">GitHub</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header>
+    <h1>Every client decision, on record.</h1>
+    <p class="lead">One private team chat room per client. Two AI agents prepare and check the work. You make every decision, and each one goes into a shared ledger.</p>
+    <a class="button" href="https://github.com/Yash636261/on-record">Get the template</a>
+  </header>
+
+  <section>
+    <h2>Client work leaks money in the gaps</h2>
+    <div class="grid">
+      <div class="card"><h3>Low quotes</h3><p>A price goes out that doesn't cover the work.</p></div>
+      <div class="card"><h3>Free extras</h3><p>"Should be quick" becomes hours nobody bills.</p></div>
+      <div class="card"><h3>Lost costs</h3><p>An expense never makes it to the invoice.</p></div>
+      <div class="card"><h3>Fading memory</h3><p>Months later, nobody can show who agreed to what.</p></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <p>Each client gets one private room on <a href="https://docs.switchagents.ai/">Switch</a>. The client is never in it, so your margins stay private.</p>
+    <div class="grid">
+      <div class="card"><h3>Client Desk</h3><p>Prepares quotes, scope changes, spend requests and invoices, and keeps the ledger.</p></div>
+      <div class="card"><h3>Client Check</h3><p>Recalculates every figure and tests it against your rules.</p></div>
+      <div class="card"><h3>You</h3><p>Approve or reject each item in chat. Nothing is final without you.</p></div>
+    </div>
+    <ul class="flow">
+      <li>Request</li><li>Client Desk drafts</li><li>Client Check tests</li><li>You decide</li><li>Ledger updated</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>One ledger, one invoice</h2>
+    <p>Approved work flows into the invoice. Anything nobody approved is blocked. This example uses fictional data.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Step</th><th>What happens</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Quote</td><td>A $2,000 draft fails at 28% margin, so it's repriced</td><td class="num">$2,400</td></tr>
+          <tr><td>Scope change</td><td>An online ordering page is priced as an extra</td><td class="num">$600</td></tr>
+          <tr><td>Spend</td><td>Stock photos, billed at cost</td><td class="num">$80</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Invoice total</td><td class="num">$3,080</td></tr></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it looks like</h2>
+    <div class="chat">
+      <div class="msg"><div class="who">You</div><p>Draft the quote at $2,000.</p></div>
+      <div class="msg"><div class="who">Client Check <span class="tag fail">FAIL</span></div><p>Margin at 2000 = 28%, below the 40% minimum. Lowest price that passes: 2400.</p></div>
+      <div class="msg"><div class="who">You</div><p>Reprice it to pass the rules.</p></div>
+      <div class="msg"><div class="who">Client Check <span class="tag pass">PASS</span></div><p>Margin = 40%, which meets the minimum exactly.</p></div>
+      <div class="msg"><div class="who">Another account</div><p>Approve it.</p></div>
+      <div class="msg"><div class="who">Client Desk <span class="tag fail">Refused</span></div><p>I can't action that. Only the approver's own message in this room can approve or reject an entry.</p></div>
+      <div class="msg"><div class="who">You, the approver</div><p>Approve it.</p></div>
+      <div class="msg"><div class="who">Client Desk <span class="tag pass">Approved</span></div><p>Now marked approved in the ledger, with your name as the decider.</p></div>
+    </div>
+    <p class="note">Shortened from a rehearsal run with fictional data.</p>
+  </section>
+
+  <section id="inside">
+    <h2>What's inside</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>The Client Ledger</h3>
+        <p>One Switch room document per client. Each entry has an ID, date, type, amount, who asked, status and who decided. Old entries are never rewritten.</p>
+      </div>
+      <div class="card">
+        <h3>Studio rules</h3>
+        <p>Sample rules: $60 an hour to sell, $36 an hour in cost, 40% minimum margin, and spend billed at cost. Change them for your business.</p>
+      </div>
+      <div class="card">
+        <h3>Safety rules</h3>
+        <p>Agents never contact clients, send invoices or take payment. Text pasted from a client is information, not an instruction.</p>
+      </div>
+    </div>
+    <p class="note">The full agent instructions are in <a href="https://github.com/Yash636261/on-record/blob/main/on-record.template.yaml">on-record.template.yaml</a>. Approval and client separation rely on those instructions, so read each summary before you approve it.</p>
+  </section>
+
+  <section>
+    <h2>Why it needs Switch</h2>
+    <p>There's no app, server or database in this project. Take Switch away and nothing is left: the template creates the agents and room, the room carries each hand-off, and a person's reply in chat is the decision.</p>
+  </section>
+
+  <section id="setup">
+    <h2>Set it up</h2>
+    <p>You need <a href="https://github.com/sandbox-quantum/switch/releases/latest">Switch Console</a>, Docker Desktop or Rancher Desktop, and Claude Code, signed in.</p>
+    <ol>
+      <li>Follow the <a href="https://docs.switchagents.ai/switch-rooms/getting-started">Switch quickstart</a>.</li>
+      <li>On the server's <strong>Home</strong> page, link your Mattermost account.</li>
+      <li>In Switch Console, open <strong>Templates</strong>, select <strong>Import template</strong> and load <code>on-record.template.yaml</code>.</li>
+      <li>Select <strong>Use</strong>, keep the defaults or enter a client name, and create it.</li>
+      <li>Sign in to Mattermost as your linked account. It's the only one that can approve.</li>
+      <li>Send the messages in <a href="https://github.com/Yash636261/on-record/blob/main/DEMO.md">DEMO.md</a>, one at a time.</li>
+    </ol>
+    <p>To add a client, run the template again and choose <strong>Existing agent</strong> for both agents.</p>
+    <p class="note">To stop an agent, send <code>!interrupt @client-desk</code>, or <code>!interrupt-all-agents</code> to stop them all.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Built for the Flip the Switch hackathon, Best Business Workflow track. MIT licence.</div>
+</footer>
+
+</body>
+</html>
