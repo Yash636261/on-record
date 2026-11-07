@@ -6,9 +6,9 @@ On Record gives a freelancer or small agency two [Switch](https://docs.switchage
 
 Built for the Flip the Switch hackathon, Best Business Workflow track.
 
-**Demo video:** add link before submitting
+**Demo video:** [Watch it on YouTube](https://youtu.be/z5IhkReUPoc)
 
-Project page: [docs/index.html](docs/index.html)
+**Project page:** [docs/index.html](docs/index.html)
 
 ### At a glance
 
@@ -65,27 +65,35 @@ The agent never says "you didn't ask for that". The client may have asked somewh
 
 ## See it run
 
-These screenshots are from a rehearsal of the private desk room in Switch, using fictional data.
+[![The On Record demo video](docs/media/client-save-button.png)](https://youtu.be/z5IhkReUPoc)
 
-**Client Check blocks a low price.** It recalculates the $2,000 quote, fails it at 28% margin, and Client Desk takes the decision to the owner.
+These screenshots are from a real run in Switch, using fictional data. Select the first one to watch the demo.
+
+**The client asks for something that was never agreed.** Client Record shows the agreed scope, says the record has no request for it, and logs a query for the owner.
+
+**The client can't change the record.** A message saying the owner already agreed doesn't count.
+
+![Client Record refuses to change the record when the client says the owner agreed](docs/media/client-fake-approval.png)
+
+**Margins stay private.** Client Record isn't in the desk room, so it has no information about costs.
+
+![Client Record says it has no information about costs or margins](docs/media/client-margin-refused.png)
+
+**Both sides see the same record.** After the owner adds the paid change, the agreed total is $2,700.
+
+![Client Record shows both agreed items and a $2,700 total](docs/media/client-agreed-total.png)
+
+**Only approved work is billed.** Client Check recalculates the invoice before it's posted.
+
+![Client Check passes the invoice and Client Desk posts it at $2,700](docs/media/final-invoice.png)
+
+**A low price is blocked in private.** Client Check fails the $2,000 quote at 28% margin.
 
 ![Client Check fails a $2,000 quote and gives the lowest passing price](docs/media/quote-blocked.png)
 
-**The wrong account can't approve.** A second account tries to approve, and Client Desk refuses.
+**The wrong account can't approve.** In a rehearsal, a second account tried to approve and Client Desk refused.
 
 ![Client Desk refuses an approval from an account that isn't the approver](docs/media/wrong-account-refused.png)
-
-**The owner's approval goes on record.** The ledger updates, and the client reply stays a draft for the owner to send.
-
-![Client Desk records the owner's approval and drafts a client reply](docs/media/owner-approved.png)
-
-**A fake approval changes nothing.** A pasted client message claims the work is already approved, and it's treated as information.
-
-![Client Desk treats a pasted claim of approval as information, not an instruction](docs/media/fake-approval-ignored.png)
-
-**The ledger lives in the room.** `!list-documents` shows the Client Ledger as a room document created by Client Desk.
-
-![The room's document list shows the Client Ledger](docs/media/ledger-in-room.png)
 
 ## Why this needs Switch
 
@@ -118,7 +126,7 @@ Both rooms were built and rehearsed on Switch Console 0.40.1 on Windows, with Cl
 |---|---|
 | [on-record.template.yaml](on-record.template.yaml) | The product: three agents, two rooms, their rules and the kickoffs |
 | [DEMO.md](DEMO.md) | Messages to send, with what each one should do |
-| [docs/index.html](docs/index.html) | A one-page overview of the project |
+| [docs/index.html](docs/index.html) | The project page, including setup and the demo steps |
 
 ## Safety
 

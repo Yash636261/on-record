@@ -139,6 +139,12 @@ h1 em { color: var(--sun); }
 .shot p { color: rgba(255,255,255,.82); margin-top: 16px; font-size: 16px; }
 .shot code { background: rgba(255,255,255,.14); color: #fff; }
 
+.video { position: relative; aspect-ratio: 16 / 9; margin-top: 40px; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 40px 80px -40px rgba(0,0,0,.7); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.watch { margin-top: 14px; font-size: 16px; }
+.shot img { max-width: 860px; margin: 0 auto; }
+.shot p { text-align: center; }
+
 /* Switch */
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 52px; }
 .features > div { background: var(--panel); border-radius: 16px; padding: 24px; }
@@ -249,8 +255,8 @@ td:first-child { color: var(--ink); font-weight: 500; }
       <h1>Every client decision,<br><em>on record.</em></h1>
       <p class="lead">When a client says "I already asked for that", your agent shows what was actually agreed. You stay in charge of every change.</p>
       <div class="actions">
-        <a class="btn btn-quiet" href="#proof">See it run</a>
-        <a class="btn btn-main" href="#setup">Set it up &rarr;</a>
+        <a class="btn btn-quiet" href="#setup">Set it up</a>
+        <a class="btn btn-main" href="https://youtu.be/z5IhkReUPoc">Watch the demo &rarr;</a>
       </div>
       <div class="jobs"><span><i></i>Scope</span><span><i></i>Price</span><span><i></i>Changes</span><span><i></i>Invoices</span></div>
     </div>
@@ -276,7 +282,7 @@ td:first-child { color: var(--ink); font-weight: 500; }
   </section>
 
   <div class="wrap">
-    <p class="caption">Illustration with fictional data. Real screenshots are in the proof section.</p>
+    <p class="caption">Illustration with fictional data. The real run is in the proof section.</p>
     <div class="numbers">
       <div><strong>1</strong><span>template to import</span></div>
       <div><strong>2</strong><span>rooms for every client</span></div>
@@ -339,19 +345,23 @@ td:first-child { color: var(--ink); font-weight: 500; }
     <div class="wrap">
       <div class="eyebrow">Proof</div>
       <h2>Not a mockup. <em>A real room.</em></h2>
-      <p class="intro">These screenshots come from a rehearsal of the private desk room in Switch and Mattermost, using fictional data.</p>
-      <div class="tabs" role="tablist" aria-label="Rehearsal screenshots">
-        <button role="tab" aria-selected="true" aria-controls="s1" data-tab="s1">Low price blocked</button>
-        <button role="tab" aria-selected="false" aria-controls="s2" data-tab="s2">Wrong account refused</button>
-        <button role="tab" aria-selected="false" aria-controls="s3" data-tab="s3">Owner approved</button>
-        <button role="tab" aria-selected="false" aria-controls="s4" data-tab="s4">Fake approval ignored</button>
-        <button role="tab" aria-selected="false" aria-controls="s5" data-tab="s5">Ledger in the room</button>
+      <p class="intro">Watch the full run, or look through the moments that matter. The sample data is fictional.</p>
+      <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/z5IhkReUPoc" title="On Record demo video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      <p class="watch"><a href="https://youtu.be/z5IhkReUPoc">Open the demo on YouTube</a></p>
+      <div class="tabs" role="tablist" aria-label="Screenshots from the real run">
+        <button role="tab" aria-selected="true" aria-controls="s1" data-tab="s1">Save button query</button>
+        <button role="tab" aria-selected="false" aria-controls="s2" data-tab="s2">Fake approval refused</button>
+        <button role="tab" aria-selected="false" aria-controls="s3" data-tab="s3">Margin stays private</button>
+        <button role="tab" aria-selected="false" aria-controls="s4" data-tab="s4">Same total for both</button>
+        <button role="tab" aria-selected="false" aria-controls="s5" data-tab="s5">Final invoice</button>
+        <button role="tab" aria-selected="false" aria-controls="s6" data-tab="s6">Low price blocked</button>
       </div>
-      <figure class="shot on" id="s1" role="tabpanel"><img src="media/quote-blocked.png" alt="Client Check fails a $2,000 quote at 28% margin and gives $2,400 as the lowest passing price." loading="lazy"><p>Client Check does the maths itself, fails the $2,000 quote, and Client Desk takes the decision to the owner.</p></figure>
-      <figure class="shot" id="s2" role="tabpanel"><img src="media/wrong-account-refused.png" alt="Client Desk refuses an approval because it came from an account that isn't the approver." loading="lazy"><p>A second account tries to approve. Client Desk refuses, because only the approver's own message counts.</p></figure>
-      <figure class="shot" id="s3" role="tabpanel"><img src="media/owner-approved.png" alt="Client Desk records the approval by yashsuthar and drafts a client reply for the approver to send." loading="lazy"><p>The real owner approves. The ledger updates, and the client reply stays a draft for a person to send.</p></figure>
-      <figure class="shot" id="s4" role="tabpanel"><img src="media/fake-approval-ignored.png" alt="Client Desk treats a pasted claim of approval as information and approves nothing." loading="lazy"><p>A pasted client message claims the work is already approved. It's logged as information, and nothing is approved.</p></figure>
-      <figure class="shot" id="s5" role="tabpanel"><img src="media/ledger-in-room.png" alt="The room's document list shows the Client Ledger, created by Client Desk." loading="lazy"><p><code>!list-documents</code> shows the Client Ledger as a room document created by Client Desk.</p></figure>
+      <figure class="shot on" id="s1" role="tabpanel"><img src="media/client-save-button.png" alt="Client Record shows what was agreed, says the record has no request for a save button, and logs a query for the owner." loading="lazy"><p>The record has no request for this. Client Record logs a query and tags the owner, without saying the client is wrong.</p></figure>
+      <figure class="shot" id="s2" role="tabpanel"><img src="media/client-fake-approval.png" alt="Client Record refuses to change the record when the client says the owner already agreed." loading="lazy"><p>The client says the owner already agreed. Client Record refuses, because only the owner's own message can change the record.</p></figure>
+      <figure class="shot" id="s3" role="tabpanel"><img src="media/client-margin-refused.png" alt="Client Record says it has no information about costs or margins." loading="lazy"><p>Client Record isn't in the desk room, so it has no information about costs or margins.</p></figure>
+      <figure class="shot" id="s4" role="tabpanel"><img src="media/client-agreed-total.png" alt="Client Record shows both agreed items and a $2,700 total." loading="lazy"><p>After the owner adds the paid change, both sides see the same record and the same $2,700 total.</p></figure>
+      <figure class="shot" id="s5" role="tabpanel"><img src="media/final-invoice.png" alt="Client Check passes the invoice and Client Desk posts it at $2,700." loading="lazy"><p>Client Check recalculates the invoice, and only approved work reaches it.</p></figure>
+      <figure class="shot" id="s6" role="tabpanel"><img src="media/quote-blocked.png" alt="Client Check fails a $2,000 quote at 28% margin and gives $2,400 as the lowest passing price." loading="lazy"><p>In the private room, Client Check does the maths itself and fails a price that breaks the margin.</p></figure>
     </div>
   </div></section>
 
