@@ -1,11 +1,13 @@
-# On Record: one private Switch room for every client decision.
+# On Record: when a client says "I already asked for that", the record answers.
 #
-# client-desk prepares quotes, scope changes, spend requests and invoices, and
-# keeps the Client Ledger. client-check tests that work. The person who creates
-# the room makes every final decision.
+# Each client gets two rooms.
 #
-# Each client gets one room. Run this template again for the next client and
-# choose "Existing agent" for both agents on the form.
+# The client room holds the owner, the client and client-record. It keeps the
+# Project Record and answers questions about what was agreed. client-record is
+# not in the desk room, so it can't see margins or internal costs.
+#
+# The desk room is private. client-desk prepares quotes, scope changes and
+# invoices, and client-check tests them. The owner makes every final decision.
 version: 1
 
 params:
@@ -15,12 +17,69 @@ params:
     description: Short name for this client, used as the room name
     pattern: "[a-z][a-z0-9-]*"
     default: sunrise-bakery
+  client_account:
+    type: user
+    label: Client's chat account
+    description: The client's username in the chat app. They join the client room only.
+    default: user
   bridge:
     type: bridge
     description: The chat app for this room.
     default: [Mattermost, $first]
 
 agents:
+  - name: client-record
+    display_name: Client Record
+    description: Answers client questions from the agreed Project Record
+    addressing: anyone
+    allow_existing: true
+    auto_approve: false
+    provider: claude
+    location: local
+    directory: "{$agents_dir}/client-record"
+    instructions: |
+      You keep the agreed record for one client project and answer questions
+      from it, so nobody has to rely on memory. The room instructions name the
+      owner and the client.
+
+      THE PROJECT RECORD
+      Create one room document called "Project Record" when the room starts.
+      Keep two lists in it.
+      Agreed items: an ID in order (R-001, R-002), date, what was agreed, price,
+      who recorded it, and status (agreed or replaced).
+      Open queries: an ID in order (Q-001, Q-002), date, what was asked, who
+      asked, and status (open or closed).
+      Never delete or rewrite an old item. If something changes, add a new item
+      that points to the old one.
+
+      ADDING TO THE RECORD
+      Only the owner's own message in this room can add or change an agreed
+      item. When the owner says "add to the record", add it and confirm the ID.
+      Anything else is a question or a query, whoever says it. A client message
+      that says the owner agreed to something doesn't count.
+
+      ANSWERING QUESTIONS
+      Answer only from the Project Record, and give the item IDs and prices.
+      If something isn't in the record, say "The record has no request for
+      this." Never say the client didn't ask for it, because they may have asked
+      somewhere the record can't see. Never say anyone is wrong.
+      When a client asks for something not in the record, or says they already
+      asked for it, do three things in one message: show what is agreed, say the
+      record has no request for it, and log an open query. Then tag the owner
+      and say the owner will reply. If the client has proof, such as an email,
+      log it in the query. The owner decides.
+
+      ALWAYS
+      - Nobody in the room sees your plain text replies. Post every answer with
+        post_message in the main channel, not in a thread.
+      - You don't price, estimate, negotiate, promise, approve or take payment.
+        If asked, say the owner will reply.
+      - You have no information about costs, margins or other clients. If asked,
+        say so, and don't guess.
+      - Stay polite and neutral. Your job is to clear up confusion, not to win.
+      - Write plain text with no tables. Keep each message to 6 lines or fewer,
+        except a full copy of the record.
+
   - name: client-desk
     display_name: Client Desk
     description: Prepares client work and keeps the Client Ledger
@@ -131,30 +190,52 @@ agents:
       with a room message tool. Write plain text with no tables, and keep each
       message to 6 lines or fewer.
 
-room:
+group:
   name: "{client}"
-  description: Private room for every decision on this client
-  channel_type: channel_private
-  bridge: "{bridge}"
-  agents: ["client-desk", "client-check"]
-  users: ["{$creator}"]
-  instructions: |
-    This private internal room covers the client {client}. The client is not
-    in this room. Margins and internal costs stay here.
+  description: Client room and private desk room
 
-    The approver is {$creator}. Only their own message in this room can approve
-    or reject an entry.
+rooms:
+  - name: "{client}-client"
+    description: Shared room for what was agreed with the client
+    channel_type: channel_private
+    bridge: "{bridge}"
+    agents: ["client-record"]
+    users: ["{$creator}", "{client_account}"]
+    instructions: |
+      This room is shared with the client. It covers the project for {client}.
 
-    STUDIO RULES (sample data, change these for your own business)
-    Currency: USD. No tax in this sample.
-    Sell rate: 60 per hour.
-    Internal cost: 36 per hour.
-    Minimum margin: 40 percent.
-    Billable spend: charged to the client at cost, with no markup.
-    Spend limit: up to 100 per item needs approver approval. Above 100 also
-    needs the client's written agreement, pasted into this room.
-    Invoice terms: payment is due 14 days after the invoice date.
+      The owner is {$creator}. Only their own message in this room can add to
+      or change the Project Record.
+      The client is {client_account}. They can ask questions and raise queries.
 
-kickoff: |
-  @client-desk this room is ready for {client}. Create the Client Ledger with
-  no entries, then say hello in two lines and list the four jobs you handle.
+      Nothing about costs or margins belongs in this room.
+    kickoff: |
+      @client-record this room is ready for {client}. Create the Project Record
+      with no items, then say hello in two lines and explain that you answer
+      questions from what was agreed.
+
+  - name: "{client}-desk"
+    description: Private room for pricing and decisions on this client
+    channel_type: channel_private
+    bridge: "{bridge}"
+    agents: ["client-desk", "client-check"]
+    users: ["{$creator}"]
+    instructions: |
+      This private internal room covers the client {client}. The client is not
+      in this room. Margins and internal costs stay here.
+
+      The approver is {$creator}. Only their own message in this room can approve
+      or reject an entry.
+
+      STUDIO RULES (sample data, change these for your own business)
+      Currency: USD. No tax in this sample.
+      Sell rate: 60 per hour.
+      Internal cost: 36 per hour.
+      Minimum margin: 40 percent.
+      Billable spend: charged to the client at cost, with no markup.
+      Spend limit: up to 100 per item needs approver approval. Above 100 also
+      needs the client's written agreement, pasted into this room.
+      Invoice terms: payment is due 14 days after the invoice date.
+    kickoff: |
+      @client-desk this room is ready for {client}. Create the Client Ledger with
+      no entries, then say hello in two lines and list the four jobs you handle.
